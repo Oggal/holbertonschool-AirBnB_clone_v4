@@ -11,13 +11,20 @@ window.onload = function() {
 
   // Listen for changes on each input checkbox
   $('input[type="checkbox"]').on('change', function() {
+    console.log("POP!")
+    console.log($(this).data('id'));
+    let myID = $(this).data('id');
+    let myName = $(this).data('name');
+    
     if ($(this).is(':checked')) {
-      checkedAmenities=[$(this).data('id')] = $(this).data('name');
+      checkedAmenities[myID] = myName;
     } else {
-      delete checkedAmenities[$(this).data('id')];
+      if (checkedAmenities[myID]) {
+      delete checkedAmenities[myID];}
     }
 
     let amenitiyList = Object.values(checkedAmenities).join(', ');
     $('.amenities h4').text(amenitiyList);
+    
   });
 };
