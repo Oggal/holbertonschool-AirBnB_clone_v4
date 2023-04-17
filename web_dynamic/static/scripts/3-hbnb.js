@@ -5,6 +5,8 @@
 // if the checkbox is unchecked, you must remove the Amenity ID from the variable
 // update the h4 tag inside the div Amenities with the list of Amenities checked
 
+const api_URL = 'http://142a5f2f1ae2.7d3c74ef.hbtn-cod.io:5001/api/v1/';
+
 window.onload = function() {
   // Create empty object to store amenities
   let checkedAmenities = {};
@@ -28,9 +30,42 @@ window.onload = function() {
   });
 };
 
+//populate Places
+$.ajax({
+  url: api_URL+'places_search/',
+  type: 'POST',
+  data: '{}',
+  contentType: 'application/json',
+  success: function (places) {
+    $.get(api_URL+'users', function(users) {
+      for (const place of places) {
+        let user = users.filter(u => u.id === place.user_id)[0]; 
+
+        $('section.places').append(`<article>
+          <div class="title_box">
+            <h2>${ place.name }</h2>
+            <div class="price_by_night">$${ place.price_by_night }</div>
+          </div>
+          <div class="information">
+            <div class="max_guest">${ place.max_guest } Guest${makePlural(place.max_guest)}</div>
+                  <div class="number_rooms">${ place.number_rooms } Bedroom${makePlural(place.number_rooms)}</div>
+                  <div class="number_bathrooms">${ place.number_bathrooms } Bathroom${makePlural(place.number_bathrooms)}</div>
+          </div>
+          <div class="user">
+                  <b>Owner:</b> ${ user.first_name } ${ user.last_name }
+                </div>
+                <div class="description">
+            ${ place.description }
+                </div>
+        </article>`);
+      }
+    });
+  }
+});
+
 // Get status from API. If OK, add Class 'available', if not, remove Class 'available'
 $(function () {
-  $.get('http://52391c7ffc72.d8557cae.hbtn-cod.io:5001/api/v1/status', function(data) {
+  $.get(api_URL+'status', function(data) {
     const apiStatusDiv = $('#api_status');
     if (data.status === 'OK') {
       apiStatusDiv.addClass('available');
@@ -40,3 +75,8 @@ $(function () {
   });
 });
 
+function makePlural (value) {
+  if (value === 1)
+    return '';
+  return 's';
+}
