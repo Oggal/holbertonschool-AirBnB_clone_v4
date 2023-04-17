@@ -30,7 +30,7 @@ window.onload = function() {
 
 // Get status from API. If OK, add Class 'available', if not, remove Class 'available'
 $(function () {
-  $.get(':5001/api/v1/status', function(data) {
+  $.get('http://52391c7ffc72.d8557cae.hbtn-cod.io:5001/api/v1/status', function(data) {
     const apiStatusDiv = $('#api_status');
     if (data.status === 'OK') {
       apiStatusDiv.addClass('available');
