@@ -39,7 +39,7 @@ $.ajax({
   success: function (places) {
     $.get(api_URL+'users', function(users) {
       for (const place of places) {
-        let user = users.filter(u => u.id === place.user_id)[0]; 
+        let user = users.filter(u => u.id === place.user_id)[0];
 
         $('section.places').append(`<article>
           <div class="title_box">
@@ -80,3 +80,19 @@ function makePlural (value) {
     return '';
   return 's';
 }
+
+$(document).ready(function () {
+  $('button').on('click', function() {
+    console.log('hello');
+    $('.places > article').remove();
+    $.ajax({
+      url: api_URL+'places_search/',
+      type: 'POST',
+      data: JSON.stringify({ amenities: checkedAmenities }),
+      contentType: 'application/json',
+      success: function (data) {
+        
+      }
+    });
+  });
+});
