@@ -21,6 +21,6 @@ header .logo {
     background: #cccccc;
 }
 
-header div.available{
+header #api_status.available{
     background: #ff545f;
 }
