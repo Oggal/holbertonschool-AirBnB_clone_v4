@@ -29,22 +29,19 @@ window.onload = function() {
     $('.amenities h4').text(amenitiyList);
 
   });
+
+  // Get status from API. If OK, add Class 'available', if not, remove Class 'available'
+  $.get('http://0.0.0.0:5001/api/v1/status/')
+    .done(function(data) {
+      const apiStatusDiv = $('#api_status');
+
+      if (data.status === 'OK') {
+        apiStatusDiv.addClass('available');
+      } else {
+        apiStatusDiv.removeClass('available');
+      }
+    })
+    .fail(function(error) {
+      console.error('Error fetching API status:', error);
+    });
 };
-
-// Get status from API. If OK, add Class 'available', if not, remove Class 'available'
-request(url, (error, response, body) => {
-  const url = 'http://0.0.0.0:5001/api/v1/status/';
-  if (error) {
-    console.error('Error fetching API status:', error);
-    return;
-  }
-  const data = JSON.parse(body);
-  const apiStatusDiv = $('#api_status');
-
-  if (data.status === 'OK') {
-    apiStatusDiv.addClass('available');
-  } else {
-    apiStatusDiv.removeClass('available');
-  }
-});
-
