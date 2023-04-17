@@ -5,8 +5,6 @@
 // if the checkbox is unchecked, you must remove the Amenity ID from the variable
 // update the h4 tag inside the div Amenities with the list of Amenities checked
 
-const request = require('request');
-
 window.onload = function() {
   // Create empty object to store amenities
   let checkedAmenities = {};
@@ -27,21 +25,21 @@ window.onload = function() {
 
     let amenitiyList = Object.values(checkedAmenities).join(', ');
     $('.amenities h4').text(amenitiyList);
-
   });
-
-  // Get status from API. If OK, add Class 'available', if not, remove Class 'available'
-  $.get('http://0.0.0.0:5001/api/v1/status/')
-    .done(function(data) {
-      const apiStatusDiv = $('#api_status');
-
-      if (data.status === 'OK') {
-        apiStatusDiv.addClass('available');
-      } else {
-        apiStatusDiv.removeClass('available');
-      }
-    })
-    .fail(function(error) {
-      console.error('Error fetching API status:', error);
-    });
 };
+
+// Get status from API. If OK, add Class 'available', if not, remove Class 'available'
+$(function () {
+  $.get('http://0.0.0.0:5001/api/v1/status/', function(data) {
+    const apiStatusDiv = $('#api_status');
+    if (data.status === 'OK') {
+      apiStatusDiv.addClass('available');
+    } else {
+      apiStatusDiv.removeClass('available');
+    }
+    if (error) {
+      console.error('Error fetching API status:', error);
+    };
+  });
+});
+
