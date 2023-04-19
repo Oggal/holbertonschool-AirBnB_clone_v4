@@ -5,7 +5,7 @@
 // if the checkbox is unchecked, you must remove the Amenity ID from the variable
 // update the h4 tag inside the div Amenities with the list of Amenities checked
 
-const api_URL = 'http://142a5f2f1ae2.7d3c74ef.hbtn-cod.io:5001/api/v1/';
+const api_URL = 'http://' + window.location.hostname + ':5001/api/v1/';
 
 window.onload = function() {
   // Create empty object to store amenities

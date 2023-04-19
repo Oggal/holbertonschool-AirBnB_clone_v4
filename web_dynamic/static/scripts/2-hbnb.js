@@ -5,6 +5,7 @@
 // if the checkbox is unchecked, you must remove the Amenity ID from the variable
 // update the h4 tag inside the div Amenities with the list of Amenities checked
 
+const api_URL = 'http://' + window.location.hostname + ':5001/';
 window.onload = function() {
   // Create empty object to store amenities
   let checkedAmenities = {};
@@ -30,7 +31,7 @@ window.onload = function() {
 
 // Get status from API. If OK, add Class 'available', if not, remove Class 'available'
 $(function () {
-  $.get('http://52391c7ffc72.d8557cae.hbtn-cod.io:5001/api/v1/status', function(data) {
+  $.get(API_URL + 'api/v1/status', function(data) {
     const apiStatusDiv = $('#api_status');
     if (data.status === 'OK') {
       apiStatusDiv.addClass('available');
